@@ -1,6 +1,8 @@
 from turtle import Turtle
 import random
 
+SCREEN_WID, SCREEN_HIG = 600, 600
+
 
 class Food(Turtle):
     def __init__(self):
@@ -13,5 +15,7 @@ class Food(Turtle):
         self.refresh()
 
     def refresh(self):
-        random_x, random_y = random.randint(-280, 230), random.randint(-280, 230)
+        random_x = random.randint(-int(SCREEN_WID/2) + 20, int(SCREEN_WID/2) - 40)
+        random_y = random.randint(-int(SCREEN_WID/2) + 40, int(SCREEN_WID/2) - 40)
+
         self.goto(random_x, random_y)
