@@ -10,7 +10,7 @@ screen_height = 400
 screen.setup(width=screen_width, height=screen_height, )
 user_choice = screen.textinput("Make your bet", prompt="Enter your color to bet on: ")
 
-color_list = ["red", "green", "blue", "yellow", "brown", "magenta", "pink"]
+color_list = ["red", "green", "blue", "yellow", "brown", "magenta"]
 
 all_turtle_objects = []
 for item in color_list:
