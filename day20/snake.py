@@ -2,6 +2,7 @@ from turtle import Turtle
 MOVE_DISTANCE = 20
 RIGHT, LEFT, UP, DOWN = 0, 180, 90, 270
 
+
 class Snake:
     def __init__(self):
         self.segments = []
