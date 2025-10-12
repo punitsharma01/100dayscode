@@ -1,5 +1,7 @@
 from turtle import Screen, Turtle
 from paddle import Paddle
+from ball import Ball
+import time
 
 SCREEN_WID, SCREEN_HIG = 800, 500
 screen = Screen()
@@ -19,8 +21,18 @@ screen.onkey(r_paddle.go_down, "Down")
 screen.onkey(l_paddle.go_up, "s")
 screen.onkey(l_paddle.go_down, "x")
 
+ball = Ball()
+
 is_game_on = True
 while is_game_on:
+    time.sleep(0.1)
+    ball.move()
+
+    # detect collision with ball
+    if ball.ycor() > 230 or ball.ycor() < - 230:
+        ball.bounce()
+
+
     screen.update()
 
 
