@@ -1,6 +1,7 @@
 from turtle import Screen, Turtle
 from paddle import Paddle
 from ball import Ball
+from scoreboard import ScoreBoard
 import time
 
 SCREEN_WID, SCREEN_HIG = 800, 500
@@ -22,6 +23,7 @@ screen.onkey(l_paddle.go_up, "s")
 screen.onkey(l_paddle.go_down, "x")
 
 ball = Ball()
+scoreboard = ScoreBoard()
 
 is_game_on = True
 while is_game_on:
@@ -40,9 +42,11 @@ while is_game_on:
     # detect missing the ball right paddle
     if ball.xcor() > 380:
         ball.reset_position()
+        scoreboard.add_l_score()
 
     if ball.xcor() < -380:
         ball.reset_position()
+        scoreboard.add_r_score()
 
     screen.update()
 
