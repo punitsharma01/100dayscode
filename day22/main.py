@@ -27,7 +27,7 @@ scoreboard = ScoreBoard()
 
 is_game_on = True
 while is_game_on:
-    time.sleep(0.1)
+    time.sleep(ball.move_speed)
     ball.move()
 
     # detect collision with ball
