@@ -3,9 +3,10 @@ from turtle import Screen
 from player import Player
 from car_manager import CarManager
 from scoreboard import Scoreboard
+SCREEN_WID, SCREEN_HIG = 800, 600
 
 screen = Screen()
-screen.setup(width=600, height=600)
+screen.setup(width=SCREEN_WID, height=SCREEN_HIG)
 screen.tracer(0)
 
 game_is_on = True
