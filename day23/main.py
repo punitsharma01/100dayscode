@@ -1,5 +1,6 @@
 import time
 from turtle import Screen
+from player import *
 from player import Player
 from car_manager import CarManager
 from scoreboard import Scoreboard
@@ -8,6 +9,11 @@ SCREEN_WID, SCREEN_HIG = 800, 600
 screen = Screen()
 screen.setup(width=SCREEN_WID, height=SCREEN_HIG)
 screen.tracer(0)
+
+player = Player()
+
+screen.listen()
+screen.onkey(player.go_up, "Up")
 
 game_is_on = True
 while game_is_on:
