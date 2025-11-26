@@ -4,7 +4,7 @@ from player import *
 from player import Player
 from car_manager import CarManager
 from scoreboard import Scoreboard
-SCREEN_WID, SCREEN_HIG = 800, 600
+SCREEN_WID, SCREEN_HIG = 800, 500
 
 screen = Screen()
 screen.setup(width=SCREEN_WID, height=SCREEN_HIG)
@@ -28,5 +28,10 @@ while game_is_on:
     for car in car_manager.all_cars:
         if car.distance(player) < 20:
             game_is_on = False
+
+    #detect crossing finish
+    if player.is_at_finish_line():
+        player.go_to_start()
+        car_manager.level_up()
 
 screen.exitonclick()
