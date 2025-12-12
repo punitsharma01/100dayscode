@@ -14,8 +14,8 @@ state = state_row.state.item()
 x_cord = us_state_cords[us_state_cords["state"] == "Ohio"]["x"]
 y_cord = us_state_cords[us_state_cords["state"] == "Ohio"]["y"]
 x, y = state_row.x.item(), state_row.y.item()
-print(x_cord.iloc[0], y_cord.iloc[0])
-print(x, y)
+# print(x_cord.iloc[0], y_cord.iloc[0])
+# print(x, y)
 
 ind = us_state_cords.index[us_state_cords["state"] == "Ohio"].tolist()
 # print(ind[0])
@@ -30,6 +30,10 @@ for i in range(len(us_state_cords)):
         prompt="What's the name of another state?"
     ).title()
     if answer_state == "Exit":
+        missing_states = list(set(us_states_list) - set(guessed_states))
+        # print(missing_states)
+        new_data = pandas.DataFrame(missing_states)
+        new_data.to_csv("states_to_learn.csv")
         break
     if answer_state in us_states_list:
         input_state = answer_state.capitalize()
@@ -40,4 +44,4 @@ for i in range(len(us_state_cords)):
         tim.penup()
         tim.goto(state_row.x.item(), state_row.y.item())
         tim.write(state_row.state.item(), align="center", font=("Courier", 16, "normal"))
-        print("moving to ", state_row.x.item(), state_row.y.item())
+        # print(state_row.x.item(), state_row.y.item())
