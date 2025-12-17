@@ -1,4 +1,4 @@
-
+from tkinter import *
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -16,3 +16,30 @@ LONG_BREAK_MIN = 20
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 
 # ---------------------------- UI SETUP ------------------------------- #
+window = Tk()
+window.title("Pomodoro")
+window.config(width=600, height=400)
+window.config(padx=40, pady=24, bg=YELLOW)
+# canvas
+canvas = Canvas(width=500, height=360, bg=PINK, highlightthickness=0)
+tomato_img = PhotoImage(file="tomato.png")
+canvas.create_image(250, 180, image=tomato_img)
+canvas.create_text(250, 200, text="00:00", fill="white", font=(FONT_NAME, 24, "bold"))
+canvas.grid(row=1, column=1)
+
+timer_label = Label(text="Timer", fg="green", bg=YELLOW)
+timer_label.config(font=(FONT_NAME, 24, "bold"))
+timer_label.grid(row=0, column=1)
+start_label = Label(text="Start", fg="green", bg=YELLOW)
+start_label.config(font=(FONT_NAME, 24, "bold"))
+start_label.grid(row=2, column=0)
+reset_label = Label(text="Reset", fg="green", bg=YELLOW)
+reset_label.config(font=(FONT_NAME, 24, "bold"))
+reset_label.grid(row=2, column=2)
+
+check_label = Label(text="✓", fg="green", bg=YELLOW)
+check_label.config(font=(FONT_NAME, 24, "bold"))
+check_label.grid(row=3, column=1)
+
+
+window.mainloop()
