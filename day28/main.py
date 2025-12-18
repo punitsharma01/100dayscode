@@ -19,6 +19,7 @@ def reset_timer():
     timer_label.config(text="TIMER", bg=GREEN)
     canvas.itemconfig(timer_text, text="00:00")
     check_mark.config(text="")
+    number_label.config(text="")
     global REPS
     REPS = 0
 
@@ -28,11 +29,15 @@ def start_timer():
     global REPS
     REPS += 1
     if REPS % 2 == 1:
+        if REPS == 1:
+            check_mark.config(text="")
         count_down(WORK_MIN * 60)
         timer_label.config(text="Work", bg=GREEN)
-    elif REPS == 8:
+        number_label.config(text=f"#{math.ceil(REPS / 2)}")
+    elif REPS % 8 == 0:
         count_down(LONG_BREAK_MIN * 60)
         timer_label.config(text="Long Break", bg=RED)
+        REPS = 0
     else:
         count_down(SHORT_BREAK_MIN * 60)
         timer_label.config(text="Short Break", bg=PINK)
@@ -70,6 +75,9 @@ canvas.grid(row=1, column=1)
 timer_label = Label(text="Timer", fg="green", bg=YELLOW)
 timer_label.config(font=(FONT_NAME, 24, "bold"))
 timer_label.grid(row=0, column=1)
+number_label = Label(text="", fg="green", bg=YELLOW)
+number_label.config(font=(FONT_NAME, 18, "bold"))
+number_label.grid(row=2, column=1)
 start_button = Button(text="Start", fg="green", command=start_timer)
 start_button.config(font=(FONT_NAME, 24, "bold"))
 start_button.grid(row=2, column=0)
