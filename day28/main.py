@@ -1,5 +1,7 @@
 from tkinter import *
 import math
+import winsound
+import time
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -24,6 +26,13 @@ def reset_timer():
     REPS = 0
 
 
+# ---------------------------- PLAY NOTIFICATION SOUND -------------------------#
+def play_sound(number):
+    for _ in range(0, number):
+        time.sleep(0.2)
+        winsound.Beep(600, 500)
+
+
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
     global REPS
@@ -34,13 +43,16 @@ def start_timer():
         count_down(WORK_MIN * 60)
         timer_label.config(text="Work", bg=GREEN)
         number_label.config(text=f"#{math.ceil(REPS / 2)}")
+        play_sound(4)
     elif REPS % 8 == 0:
         count_down(LONG_BREAK_MIN * 60)
         timer_label.config(text="Long Break", bg=RED)
         REPS = 0
+        play_sound(5)
     else:
         count_down(SHORT_BREAK_MIN * 60)
         timer_label.config(text="Short Break", bg=PINK)
+        play_sound(3)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -51,7 +63,7 @@ def count_down(count):
     if count_sec <= 9:
         count_sec = f"0{count_sec}"
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
-    if count > 0:
+    if count >= 0:
         TIMER = window.after(1000, count_down, count - 1)
     else:
         if REPS % 2 == 1:
