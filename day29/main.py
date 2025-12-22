@@ -7,8 +7,10 @@ def save_details():
     email_value = email_entry.get()
     password_value = password_entry.get()
     with open("data.txt", mode="a") as file:
-        details = f"{website_value} | {email_value} | {password_value}"
+        details = f"{website_value} | {email_value} | {password_value}\n"
         file.write(details)
+        website_entry.delete(0, END)
+        password_entry.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
