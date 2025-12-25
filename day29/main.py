@@ -7,20 +7,25 @@ def save_details():
     website_value = website_entry.get()
     email_value = email_entry.get()
     password_value = password_entry.get()
-
-    is_ok = messagebox.askokcancel(
-        title="Entered Details",
-        message=f"Email: {email_value} \n"
-                f"Password: {password_value} \n"
-                f"Are you sure you want to save?"
-    )
-    if is_ok:
-        with open("data.txt", mode="a") as file:
-            details = f"{website_value} | {email_value} | {password_value}\n"
-            file.write(details)
-            website_entry.delete(0, END)
-            password_entry.delete(0, END)
-            website_entry.focus()
+    if len(website_value) < 1 or len(password_value) < 2:
+        messagebox.showinfo(
+            title="Oops !!",
+            message=f"Field Value(s) are Invalid, Try Again!!"
+        )
+    else:
+        is_ok = messagebox.askokcancel(
+            title="Entered Details",
+            message=f"Website: {website_value} \n"
+                    f"Password: {password_value} \n"
+                    f"Are you sure you want to save?"
+        )
+        if is_ok:
+            with open("data.txt", mode="a") as file:
+                details = f"{website_value} | {email_value} | {password_value}\n"
+                file.write(details)
+                website_entry.delete(0, END)
+                password_entry.delete(0, END)
+                website_entry.focus()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
