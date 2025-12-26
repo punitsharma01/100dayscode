@@ -50,20 +50,24 @@ def save_details():
                     f"Are you sure you want to save?"
         )
         if is_ok:
-            # with open("data.txt", mode="a") as file:
-            with open("data.json", mode="r") as data_file:
-                # reading old data
-                data = json.load(data_file)
-                # updating old data + new data
+            try:
+                with open("data.json", mode="r") as data_file:
+                    # reading old data
+                    data = json.load(data_file)
+                    # updating old data + new data
+                    data.update(website_data)
+            except FileNotFoundError:
+                # print("file not found!")
+                data = {}
                 data.update(website_data)
+            finally:
+                with open("data.json", mode="w") as data_file:
+                    # saving new data to file
+                    json.dump(data, data_file, indent=4)
 
-            with open("data.json", mode="w") as data_file:
-                # saving new data to file
-                json.dump(data, data_file, indent=4)
-
-                website_entry.delete(0, END)
-                password_entry.delete(0, END)
-                website_entry.focus()
+                    website_entry.delete(0, END)
+                    password_entry.delete(0, END)
+                    website_entry.focus()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
