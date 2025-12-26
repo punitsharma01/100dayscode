@@ -70,6 +70,35 @@ def save_details():
                     website_entry.focus()
 
 
+# ------------------------- Search Function --------------------------- #
+def search_details():
+    website = website_entry.get()
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+            data = {key.lower(): value for key, value in data.items()}
+            if website.lower() in data:
+                email = data[website.lower()]["email"]
+                password = data[website.lower()]["password"]
+                messagebox.showinfo(
+                    title=website,
+                    message=f"Email: {email} \n"
+                            f"Password: {password}"
+                )
+            else:
+                raise KeyError
+    except KeyError:
+        messagebox.showinfo(
+            title="Oops!",
+            message=f"Data of this website not found!"
+        )
+    except FileNotFoundError:
+        messagebox.showinfo(
+            title="Oops!",
+            message=f"No Data Found!"
+        )
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("K-Vault Password Manager")
@@ -87,19 +116,22 @@ canvas.grid(row=0, column=1)
 
 website_label = Label(text="Website", font=FONT)
 website_label.grid(row=1, column=0)
-website_entry = Entry(width=36)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry = Entry(width=42)
+website_entry.grid(row=1, column=1)
 website_entry.focus()
+search_button = Button(text="Search", command=search_details)
+search_button.config(bg=GREEN, font=FONT)
+search_button.grid(row=1, column=2)
 
 email_label = Label(text="Email/Username", font=FONT)
 email_label.grid(row=2, column=0)
-email_entry = Entry(width=36)
-email_entry.grid(row=2, column=1, columnspan=2)
+email_entry = Entry(width=42)
+email_entry.grid(row=2, column=1)
 email_entry.insert(0, "myemail@example.com")
 
 password_label = Label(text="Password", font=FONT)
 password_label.grid(row=3, column=0)
-password_entry = Entry(width=20)
+password_entry = Entry(width=42)
 password_entry.grid(row=3, column=1)
 
 generate_password_button = Button(text="Generate", command=generate_password)
