@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from random import choice, shuffle, randint
+import json
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -27,10 +28,16 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_details():
-    website_value = website_entry.get()
-    email_value = email_entry.get()
-    password_value = password_entry.get()
-    if len(website_value) < 1 or len(password_value) < 2:
+    website = website_entry.get()
+    email = email_entry.get()
+    password = password_entry.get()
+    website_data = {
+        website: {
+            "email": email,
+            "password": password
+        }
+    }
+    if len(website) < 1 or len(password) < 2:
         messagebox.showinfo(
             title="Oops !!",
             message=f"Field Value(s) are Invalid, Try Again!!"
@@ -38,14 +45,22 @@ def save_details():
     else:
         is_ok = messagebox.askokcancel(
             title="Entered Details",
-            message=f"Website: {website_value} \n"
-                    f"Password: {password_value} \n"
+            message=f"Website: {website} \n"
+                    f"Password: {password} \n"
                     f"Are you sure you want to save?"
         )
         if is_ok:
-            with open("data.txt", mode="a") as file:
-                details = f"{website_value} | {email_value} | {password_value}\n"
-                file.write(details)
+            # with open("data.txt", mode="a") as file:
+            with open("data.json", mode="r") as data_file:
+                # reading old data
+                data = json.load(data_file)
+                # updating old data + new data
+                data.update(website_data)
+
+            with open("data.json", mode="w") as data_file:
+                # saving new data to file
+                json.dump(data, data_file, indent=4)
+
                 website_entry.delete(0, END)
                 password_entry.delete(0, END)
                 website_entry.focus()
