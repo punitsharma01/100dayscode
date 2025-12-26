@@ -86,12 +86,10 @@ def search_details():
                             f"Password: {password}"
                 )
             else:
-                raise KeyError
-    except KeyError:
-        messagebox.showinfo(
-            title="Oops!",
-            message=f"Data of this website not found!"
-        )
+                messagebox.showinfo(
+                    title="Error!",
+                    message=f"Details for {website} Not found!"
+                )
     except FileNotFoundError:
         messagebox.showinfo(
             title="Oops!",
