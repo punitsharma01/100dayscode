@@ -1,4 +1,5 @@
 import random
+import time
 from tkinter import *
 import pandas
 from random import choice
@@ -11,14 +12,25 @@ FONT_LARGE = ("Arial", 40, "bold")
 # ----------------------- Reading data  ----------------#
 dataframe = pandas.read_csv("./data/french_words.csv")
 french_words = dataframe.to_dict(orient="records")
+random_dict = {}
 
 
 def next_word():
+    global random_dict, flip_timer
+    window.after_cancel(flip_timer)
     random_dict = random.choice(french_words)
     french = random_dict["French"]
     english = random_dict["English"]
-    canvas.itemconfig(card_title, text="French")
-    canvas.itemconfig(card_word, text=f"{french}")
+    canvas.itemconfig(canvas_image, image=front_image)
+    canvas.itemconfig(card_title, text="French", fill="black")
+    canvas.itemconfig(card_word, text=f"{french}", fill="black")
+    flip_timer = window.after(3000, func=flip_card)
+
+
+def flip_card():
+    canvas.itemconfig(canvas_image, image=back_image)
+    canvas.itemconfig(card_title, text="English", fill='#fff')
+    canvas.itemconfig(card_word, text=random_dict["English"],  fill='#fff')
 
 
 # ----------------------- UI Setup ----------------#
@@ -26,11 +38,13 @@ window = Tk()
 window.title("Flash Card Learning")
 window.config(bg=BACKGROUND_COLOR)
 window.config(padx=50, pady=50)
+flip_timer = window.after(3000, func=flip_card)
 
 # canvas
 canvas = Canvas(width=800, height=526, bg=YELLOW, highlightthickness=0)
 front_image = PhotoImage(file="./images/card_front.png")
-canvas.create_image(412, 274, image=front_image)
+back_image = PhotoImage(file="./images/card_back.png")
+canvas_image = canvas.create_image(412, 274, image=front_image)
 canvas.grid(row=0, column=0, columnspan=2)
 canvas.config(bg=BACKGROUND_COLOR)
 card_title = canvas.create_text(412, 150, text="", font=FONT_SMALL)
