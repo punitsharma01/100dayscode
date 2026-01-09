@@ -30,8 +30,10 @@ for i in range(len(us_state_cords)):
         prompt="What's the name of another state?"
     ).title()
     if answer_state == "Exit":
-        missing_states = list(set(us_states_list) - set(guessed_states))
+        # missing_states = list(set(us_states_list) - set(guessed_states))
         # print(missing_states)
+        # using list comprehension
+        missing_states = [state for state in us_states_list if state not in guessed_states]
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("states_to_learn.csv")
         break

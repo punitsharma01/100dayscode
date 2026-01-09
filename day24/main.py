@@ -40,14 +40,14 @@ while is_game_on:
         snake.head.xcor() < - SCREEN_WID/2 or
         snake.head.ycor() > SCREEN_HIG/2 - 40 or
         snake.head.ycor() < - SCREEN_HIG/2 + 10):
-        is_game_on = False
-        scoreboard.game_over()
+        scoreboard.reset()
+        snake.reset()
 
     # Detect collision with tail # slicing to second element skipping head
     for segment in snake.segments[2:]:
         if snake.head.distance(segment) < 10:
-            is_game_on = False
-            scoreboard.game_over()
+            scoreboard.reset()
+            snake.reset()
 
 
 screen.exitonclick()
