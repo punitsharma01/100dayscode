@@ -1,10 +1,16 @@
 from tkinter import *
+import requests
 
 
 def get_quote():
-    pass
-    #Write your code here.
-
+    try:
+        response = requests.get(url="https://api.kanye.rest/", verify=False)
+        response.raise_for_status()
+        data = response.json()
+        quote = data["quote"]
+        canvas.itemconfig(quote_text, text=quote)
+    except Exception as e:
+        print(f"Some error occured {e}")
 
 
 window = Tk()
